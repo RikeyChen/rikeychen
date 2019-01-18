@@ -2361,12 +2361,12 @@ input, select, textarea {
 
 		ul.feature-icons li {
 			text-decoration: none;
-			display: inline-block;
+			display: flex;
+			justify-content: space-between;
 			margin: 0 0 1.6875em 0;
-			padding: 0.35em 0 0 3.5em;
 			position: relative;
 			vertical-align: top;
-			width: 48%;
+			width: 100%;
 		}
 
 			ul.feature-icons li:before {
@@ -3292,4 +3292,12 @@ input, select, textarea {
 				padding: 0;
 			}
 
+	}
+
+	.skills {
+    font-size: 70px;
+		width: 1em;
+    height: 1em;
+    object-fit: cover;
+    background-size: cover;
 	}

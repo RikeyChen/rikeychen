@@ -4,156 +4,159 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-(function($) {
+(function ($) {
+  const $window = $(window);
 
-	var $window = $(window),
-		$body = $('body'),
-		$header = $('#header'),
-		$titleBar = null,
-		$nav = $('#nav'),
-		$wrapper = $('#wrapper');
 
-	// Breakpoints.
-		breakpoints({
-			xlarge:   [ '1281px',  '1680px' ],
-			large:    [ '1025px',  '1280px' ],
-			medium:   [ '737px',   '1024px' ],
-			small:    [ '481px',   '736px'  ],
-			xsmall:   [ null,      '480px'  ],
-		});
+  const $body = $('body');
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
 
-	// Tweaks/fixes.
+  const $header = $('#header');
 
-		// Polyfill: Object fit.
-			if (!browser.canUse('object-fit')) {
 
-				$('.image[data-position]').each(function() {
+  let $titleBar = null;
 
-					var $this = $(this),
-						$img = $this.children('img');
 
-					// Apply img as background.
-						$this
-							.css('background-image', 'url("' + $img.attr('src') + '")')
-							.css('background-position', $this.data('position'))
-							.css('background-size', 'cover')
-							.css('background-repeat', 'no-repeat');
+  const $nav = $('#nav');
 
-					// Hide img.
-						$img
-							.css('opacity', '0');
 
-				});
+  const $wrapper = $('#wrapper');
 
-			}
+  // Breakpoints.
+  breakpoints({
+    xlarge: ['1281px', '1680px'],
+    large: ['1025px', '1280px'],
+    medium: ['737px', '1024px'],
+    small: ['481px', '736px'],
+    xsmall: [null, '480px'],
+  });
 
-	// Header Panel.
+  // Play initial animations on page load.
+  $window.on('load', () => {
+    window.setTimeout(() => {
+      $body.removeClass('is-preload');
+    }, 100);
+  });
 
-		// Nav.
-			var $nav_a = $nav.find('a');
+  // Tweaks/fixes.
 
-			$nav_a
-				.addClass('scrolly')
-				.on('click', function() {
+  // Polyfill: Object fit.
+  if (!browser.canUse('object-fit')) {
+    $('.image[data-position]').each(function () {
+      const $this = $(this);
 
-					var $this = $(this);
 
-					// External link? Bail.
-						if ($this.attr('href').charAt(0) != '#')
-							return;
+      const $img = $this.children('img');
 
-					// Deactivate all links.
-						$nav_a.removeClass('active');
+      // Apply img as background.
+      $this
+        .css('background-image', `url("${$img.attr('src')}")`)
+        .css('background-position', $this.data('position'))
+        .css('background-size', 'cover')
+        .css('background-repeat', 'no-repeat');
 
-					// Activate link *and* lock it (so Scrollex doesn't try to activate other links as we're scrolling to this one's section).
-						$this
-							.addClass('active')
-							.addClass('active-locked');
+      // Hide img.
+      $img
+        .css('opacity', '0');
+    });
+  }
 
-				})
-				.each(function() {
+  // Header Panel.
 
-					var	$this = $(this),
-						id = $this.attr('href'),
-						$section = $(id);
+  // Nav.
+  const $nav_a = $nav.find('a');
 
-					// No section for this link? Bail.
-						if ($section.length < 1)
-							return;
+  $nav_a
+    .addClass('scrolly')
+    .on('click', function () {
+      const $this = $(this);
 
-					// Scrollex.
-						$section.scrollex({
-							mode: 'middle',
-							top: '5vh',
-							bottom: '5vh',
-							initialize: function() {
+      // External link? Bail.
+      if ($this.attr('href').charAt(0) != '#') { return; }
 
-								// Deactivate section.
-									$section.addClass('inactive');
+      // Deactivate all links.
+      $nav_a.removeClass('active');
 
-							},
-							enter: function() {
+      // Activate link *and* lock it (so Scrollex doesn't try to activate other links as we're scrolling to this one's section).
+      $this
+        .addClass('active')
+        .addClass('active-locked');
+    })
+    .each(function () {
+      const	$this = $(this);
 
-								// Activate section.
-									$section.removeClass('inactive');
 
-								// No locked links? Deactivate all links and activate this section's one.
-									if ($nav_a.filter('.active-locked').length == 0) {
+      const id = $this.attr('href');
 
-										$nav_a.removeClass('active');
-										$this.addClass('active');
 
-									}
+      const $section = $(id);
 
-								// Otherwise, if this section's link is the one that's locked, unlock it.
-									else if ($this.hasClass('active-locked'))
-										$this.removeClass('active-locked');
+      // No section for this link? Bail.
+      if ($section.length < 1) { return; }
 
-							}
-						});
+      // Scrollex.
+      $section.scrollex({
+        mode: 'middle',
+        top: '5vh',
+        bottom: '5vh',
+        initialize() {
+          // Deactivate section.
+          $section.addClass('inactive');
+        },
+        enter() {
+          // Activate section.
+          $section.removeClass('inactive');
 
-				});
+          // No locked links? Deactivate all links and activate this section's one.
+          if ($nav_a.filter('.active-locked').length == 0) {
+            $nav_a.removeClass('active');
+            $this.addClass('active');
+          }
 
-		// Title Bar.
-			$titleBar = $(
-				'<div id="titleBar">' +
-					'<a href="#header" class="toggle"></a>' +
-					'<span class="title">' + $('#logo').html() + '</span>' +
-				'</div>'
-			)
-				.appendTo($body);
+          // Otherwise, if this section's link is the one that's locked, unlock it.
+          else if ($this.hasClass('active-locked')) { $this.removeClass('active-locked'); }
+        },
+      });
+    });
 
-		// Panel.
-			$header
-				.panel({
-					delay: 500,
-					hideOnClick: true,
-					hideOnSwipe: true,
-					resetScroll: true,
-					resetForms: true,
-					side: 'right',
-					target: $body,
-					visibleClass: 'header-visible'
-				});
+  // Title Bar.
+  $titleBar = $(
+    `${'<div id="titleBar">'
+					+ '<a href="#header" class="toggle"></a>'
+					+ '<span class="title">'}${$('#logo').html()}</span>`
+				+ '</div>',
+  )
+    .appendTo($body);
 
-	// Scrolly.
-		$('.scrolly').scrolly({
-			speed: 1000,
-			offset: function() {
+  // Panel.
+  $header
+    .panel({
+      delay: 500,
+      hideOnClick: true,
+      hideOnSwipe: true,
+      resetScroll: true,
+      resetForms: true,
+      side: 'right',
+      target: $body,
+      visibleClass: 'header-visible',
+    });
 
-				if (breakpoints.active('<=medium'))
-					return $titleBar.height();
+  // Scrolly.
+  $('.scrolly').scrolly({
+    speed: 1000,
+    offset() {
+      if (breakpoints.active('<=medium')) { return $titleBar.height(); }
 
-				return 0;
+      return 0;
+    },
+  });
+}(jQuery));
 
-			}
-		});
+const mail = document.getElementsByClassName('fa-envelope')[0];
 
-})(jQuery);
+mail.addEventListener('click', () => {
+  window.scrollTo({
+    top: 2600,
+    behavior: 'smooth',
+  });
+});

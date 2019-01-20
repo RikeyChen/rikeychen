@@ -3308,3 +3308,21 @@ input, select, textarea {
 	.fa-envelope {
 		cursor: pointer;
 	}
+
+	#resume-container {
+		display: flex;
+		align-items: center;
+		border-bottom: none;
+		width: 0;
+	}
+
+	#resume-container > h1:hover {
+		text-decoration: underline;
+	}
+
+	#resume {
+		margin-right: 20px;
+		width: 50px;
+		height: 50px;
+		text-decoration: none;
+	}

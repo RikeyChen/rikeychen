@@ -1850,7 +1850,8 @@ input, select, textarea {
 		input[type="email"]:focus,
 		select:focus,
 		textarea:focus {
-			border-color: #4acaa8;
+			/* border-color: #4acaa8; */
+			border-color: #6FA0E8;
 		}
 
 	select {
@@ -1950,7 +1951,8 @@ input, select, textarea {
 
 		input[type="checkbox"]:focus + label:before,
 		input[type="radio"]:focus + label:before {
-			border-color: #4acaa8;
+			/* border-color: #4acaa8; */
+			border-color: #6FA0E8;
 		}
 
 	input[type="checkbox"] + label:before {
@@ -3055,7 +3057,8 @@ input, select, textarea {
 					}
 
 					#titleBar .toggle:before {
-						background: #4acaa8;
+						/* background: #4acaa8; */
+						background: #6FA0E8;
 						color: #ffffff;
 						content: '\f0c9';
 						display: block;

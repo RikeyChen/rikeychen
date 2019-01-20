@@ -153,10 +153,10 @@
 }(jQuery));
 
 const mail = document.getElementsByClassName('fa-envelope')[0];
+const form = document.getElementById('four');
 
 mail.addEventListener('click', () => {
-  window.scrollTo({
-    top: 2570,
+  form.scrollIntoView({
     behavior: 'smooth',
   });
 });

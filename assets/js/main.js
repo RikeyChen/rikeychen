@@ -156,7 +156,7 @@ const mail = document.getElementsByClassName('fa-envelope')[0];
 
 mail.addEventListener('click', () => {
   window.scrollTo({
-    top: 2600,
+    top: 2570,
     behavior: 'smooth',
   });
 });

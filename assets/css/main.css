@@ -3301,3 +3301,7 @@ input, select, textarea {
     object-fit: cover;
     background-size: cover;
 	}
+
+	.fa-envelope {
+		cursor: pointer;
+	}

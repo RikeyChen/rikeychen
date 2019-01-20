@@ -150,20 +150,6 @@
       return 0;
     },
   });
-
-  let message = '';
-
-  $('#sendMessage').on('click', () => {
-    message = $('#contactform').serialize();
-    $.ajax({
-      url: 'https://formspree.io/rikey.chen16@gmail.com',
-      method: 'POST',
-      data: { message },
-      dataType: 'json',
-    });
-    alert('Thanks for the email, I\'ll get back to you as soon as I can.');
-    return false;
-  });
 }(jQuery));
 
 const mail = document.getElementsByClassName('fa-envelope')[0];
